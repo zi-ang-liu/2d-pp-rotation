@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Two-dimensional packing problem} 
+\author{Ziang Liu}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Abstract.
+\end{abstract}
+
+\section{Two-dimensional packing problem}
+
+\subsection*{Notations}
+
+\subsubsection*{Sets and indices}
+\begin{itemize}
+    \item $I$: Set of components, $I = \{0, 1, \dots, n\}$.
+    \item $i$: Index of components, $i \in I$.
+
+\end{itemize}
+
+\subsubsection*{Parameters}
+\begin{itemize}
+    \item $W_{UB}$: Upper bound of the width.
+    \item $L_{UB}$: Upper bound of the length.
+    \item $w_{i}$: Width of component $i$.
+    \item $l_{i}$: Length of component $i$.
+\end{itemize}
+
+\subsubsection*{Decision variables}
+\begin{itemize}
+    \item $W$: width of the packing.
+    \item $L$: length of the packing.
+    \item $x_{i}$: X-coordinate of component $i$.
+    \item $y_{i}$: Y-coordinate of component $i$.
+    \item $u_{i, j}$: Binary variable indicating whether component $i$ is placed at the left of component $j$.
+    \item $v_{i, j}$: Binary variable indicating whether component $i$ is placed at the above of component $j$.
+    \item $\mu_{i}$: Binary variable indicating whether component $i$ is in rotation mode.
+\end{itemize}
+
+\subsubsection*{Optimization model}
+
+\begin{align}
+    \min \quad        & WL \label{eq:obj}                                                                                                                     \\
+    \text{s.t.} \quad & x_{i} + w_{i} (1-\mu_{i}) + l_{i} \mu_{i} \leq x_{j} + W_{UB} (1 - u_{i, j}) \quad \forall i, j \in I, i \neq j \label{eq:relative_x} \\
+                      & y_{i} + l_{i} (1-\mu_{i}) + w_{i} \mu_{i} \leq y_{j} + L_{UB} (1 - v_{i, j}) \quad \forall i, j \in I, i \neq j \label{eq:relative_y} \\
+                      & u_{i, j} + u_{j, i} + v_{i, j} + v_{j, i}  \geq 1 \quad \forall i, j \in I, i \neq j \label{eq:non_overlap}                           \\
+                      & u_{i, j}, v_{i, j} \in \{0, 1\} \quad \forall i, j \in I, i \neq j                \label{eq:var_uv}                                   \\
+                      & \mu_{i} \in \{0, 1\} \quad \forall i \in I                                        \label{eq:var_mu}                                   \\
+                      & 0 \leq x_{i} \leq W - w_{i} (1-\mu_{i}) - l_{i} \mu_{i} \quad \forall i \in I      \label{eq:var_x}                                   \\
+                      & 0 \leq y_{i} \leq L - l_{i} (1-\mu_{i}) - w_{i} \mu_{i} \quad \forall i \in I       \label{eq:var_y}                                  
+\end{align}
+
+
+\end{document}
